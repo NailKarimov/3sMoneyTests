@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Test output and reports
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+allure-results-prev-*/
+reports/
+*.log
+
+# Local tooling and secrets
+.env
+.env.*
+!.env.example
+.mcp.json
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# One-off setup script
+cleanup.ps1

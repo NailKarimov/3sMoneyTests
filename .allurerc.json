@@ -1,0 +1,7 @@
+{
+  "dirs": {
+    "results": "allure-results",
+    "report": "allure-report"
+  },
+  "plugins": []
+}

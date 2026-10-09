@@ -1,0 +1,29 @@
+{
+  "name": "3s-money-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent web quality audit of public 3s.money pages: UI, accessibility (WCAG), performance (Core Web Vitals), SEO, links and GDPR cookie consent. Playwright + TypeScript + Allure.",
+  "license": "MIT",
+  "scripts": {
+    "test": "playwright test",
+    "test:full": "playwright test",
+    "test:slow": "playwright test --grep @slow",
+    "test:smoke": "playwright test tests/smoke",
+    "test:a11y": "playwright test tests/a11y",
+    "test:perf": "playwright test tests/performance",
+    "test:seo": "playwright test tests/seo",
+    "test:gdpr": "playwright test tests/compliance",
+    "allure:gen": "allure generate ./allure-results -o ./allure-report --clean",
+    "test:allure": "playwright test; allure generate ./allure-results -o ./allure-report --clean",
+    "report": "allure open ./allure-report",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^3.12.2",
+    "typescript": "^7.0.2"
+  }
+}
