@@ -24,21 +24,27 @@ export type TabStop = {
 export async function collectTabStops(page: Page, count: number): Promise<TabStop[]> {
   await page.evaluate(() => {
     const w = window as unknown as { __ks: Record<string, string>; __ksSig: (el: Element) => string };
-    w.__ksSig = (el: Element) => {
-      const s = getComputedStyle(el);
-      return [
-        s.outlineStyle,
-        s.outlineWidth,
-        s.outlineColor,
-        s.boxShadow,
-        s.borderTopColor,
-        s.borderBottomColor,
-        s.borderBottomWidth,
-        s.backgroundColor,
-        s.color,
-        s.textDecorationLine,
-      ].join('|');
-    };
+    // Style signature of the element and its ::before/::after (indicators are often drawn there).
+    w.__ksSig = (el: Element) =>
+      [null, '::before', '::after']
+        .map((pseudo) => {
+          const s = getComputedStyle(el, pseudo);
+          return [
+            s.outlineStyle,
+            s.outlineWidth,
+            s.outlineColor,
+            s.boxShadow,
+            s.borderTopColor,
+            s.borderBottomColor,
+            s.borderBottomWidth,
+            s.backgroundColor,
+            s.color,
+            s.textDecorationLine,
+            s.opacity,
+            s.transform,
+          ].join('|');
+        })
+        .join('||');
     (document.activeElement as HTMLElement | null)?.blur();
     window.scrollTo(0, 0);
     w.__ks = {};
