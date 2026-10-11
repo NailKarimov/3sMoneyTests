@@ -16,6 +16,7 @@ export const KNOWN_BUGS = {
   'BUG-006': 'Ссылки target=_blank без rel=noopener',
   'BUG-007': 'Ссылки-заглушки href="#"',
   'BUG-009': 'Трекеры работают до согласия на cookie и после отказа',
+  'BUG-010': 'Нет видимого индикатора фокуса у ссылок и кнопок (WCAG 2.4.7)',
 } as const;
 
 export type KnownBugId = keyof typeof KNOWN_BUGS;

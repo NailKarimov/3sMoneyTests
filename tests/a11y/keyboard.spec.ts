@@ -1,4 +1,4 @@
-import { test, expect, collectTabStops } from '../../src';
+import { test, expect, collectTabStops, knownBug } from '../../src';
 
 /**
  * Клавиатурная доступность по WCAG 2.2:
@@ -33,6 +33,7 @@ test.describe('Доступность: навигация с клавиатур�
   });
 
   test('у элемента в фокусе есть видимый индикатор фокуса (2.4.7)', async ({ page }) => {
+    knownBug('BUG-010');
     const stops = (await collectTabStops(page, TAB_PRESSES)).filter((s) => !s.onBody);
     const invisible = stops.filter((s) => !s.hasFocusIndicator);
 

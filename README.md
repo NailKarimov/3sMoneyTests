@@ -19,7 +19,7 @@ SEO, link integrity and privacy compliance — and every finding is documented a
 | Smoke | — | `tests/smoke` | Home page loads, key heading and links are visible |
 | Functional UI | ISTQB test design techniques | `tests/functional` | Navigation of 8 key pages, menus, accordions, language switcher (EN/FR/AR + RTL), contact form negative cases, 404 handling |
 | Responsive UI | — | `tests/ui` | No horizontal scroll at 375 / 768 / 1440 px, mobile menu, console errors, broken images, own 4xx/5xx requests |
-| Accessibility | WCAG 2.1 A/AA via axe-core | `tests/a11y` | No critical/serious violations; minor ones are attached to the report |
+| Accessibility | WCAG 2.2 A/AA (EN 301 549 V4.1.1) via axe-core + keyboard checks | `tests/a11y` | No critical/serious axe violations; Tab order without keyboard traps (2.1.2), visible focus indicator (2.4.7), focused element on screen (2.4.11) |
 | Performance | Core Web Vitals | `tests/performance` | LCP and CLS below Google's "poor" thresholds, TTFB, total page weight |
 | SEO | — | `tests/seo` | Title, meta description, canonical, `lang`, single `<h1>`, Open Graph, robots.txt, sitemap |
 | Links | — | `tests/links` | Placeholder and empty `href`, `target=_blank` without `rel=noopener`, internal 404/5xx; full-site crawler (`@slow`) |
@@ -27,7 +27,7 @@ SEO, link integrity and privacy compliance — and every finding is documented a
 
 ## Findings
 
-The baseline audit (20 Sep 2026) found **9 defects**: 1 critical, 2 major, 4 minor, 2 trivial.
+The audits found **10 defects**: 1 critical, 3 major, 4 minor, 2 trivial.
 Full bug reports with steps, expected and actual results: [`docs/findings/`](docs/findings/).
 
 | ID | Severity | Area | Summary |
@@ -35,8 +35,9 @@ Full bug reports with steps, expected and actual results: [`docs/findings/`](doc
 | BUG-009 | critical | Privacy | Analytics and marketing trackers load before consent and keep sending data after "Decline" |
 | BUG-001 | major | Performance | Home page transfers ≈60 MB (≈28 MB on mobile) because videos autoload |
 | BUG-002 | major | Accessibility | Mobile burger menu is a `div`, unreachable by keyboard and screen readers |
+| BUG-010 | major | Accessibility | About half of the links and buttons show no visible focus indicator (WCAG 2.4.7) |
 | BUG-003 | minor | Content | Link with an unrendered template placeholder in `href` |
-| BUG-004 | minor | Accessibility | WCAG 2.1 AA violations: unnamed buttons and links, unlabeled form fields, low contrast |
+| BUG-004 | minor | Accessibility | WCAG 2.2 AA violations: unnamed buttons and links, unlabeled form fields, low contrast |
 | BUG-005 | minor | SEO | Three `<h1>` elements on the home page |
 | BUG-006 | minor | Security | `target=_blank` links without `rel=noopener` |
 | BUG-007 | trivial | UX / a11y | Placeholder links `href="#"` used as buttons |
