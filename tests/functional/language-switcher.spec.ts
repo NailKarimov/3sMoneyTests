@@ -1,53 +1,39 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect } from '../../src';
 
 /**
  * Переключатель языка (Weglot): ENG / FR / AR.
  * Проверяем смену языка контента, RTL для арабского и целостность вёрстки.
  */
 test.describe('Переключатель языка', () => {
-  test('в шапке доступны языки ENG, FR и AR', async ({ page }) => {
-    await gotoPage(page, '/');
-    for (const lang of ['ENG', 'FR', 'AR']) {
-      const el = page.locator(`[id="navigation (new)"] :text-is("${lang}"), header :text-is("${lang}")`).first();
-      expect(await el.count(), `Пункт языка "${lang}" не найден в навигации`).toBeGreaterThan(0);
+  test('в шапке доступны языки ENG, FR и AR', async ({ homePage }) => {
+    await homePage.open();
+    for (const lang of ['ENG', 'FR', 'AR'] as const) {
+      expect(
+        await homePage.header.languageItem(lang).count(),
+        `Пункт языка "${lang}" не найден в навигации`
+      ).toBeGreaterThan(0);
     }
   });
 
-  test('переключение на французский меняет язык контента', async ({ page }) => {
+  test('переключение на французский меняет язык контента', async ({ homePage, page }) => {
     test.setTimeout(120_000);
-    await gotoPage(page, '/');
+    await homePage.open();
+    const before = (await homePage.h1.textContent())?.trim() || '';
 
-    const before = (await page.locator('h1').first().textContent())?.trim() || '';
-
-    // Открываем языковой дропдаун (ENG) и выбираем FR.
-    await page.locator(':text-is("ENG")').locator('visible=true').first().click({ force: true });
-    await page.waitForTimeout(800);
-    await page.locator(':text-is("FR")').locator('visible=true').first().click({ force: true });
-
-    // Weglot либо меняет lang на месте, либо перезагружает страницу.
-    await page
-      .waitForFunction(() => document.documentElement.lang.toLowerCase().startsWith('fr'), null, { timeout: 20_000 })
-      .catch(() => {});
+    await homePage.header.switchLanguage('FR');
     await page.waitForTimeout(2_000);
 
     const lang = await page.locator('html').getAttribute('lang');
-    const after = (await page.locator('h1').first().textContent())?.trim() || '';
+    const after = (await homePage.h1.textContent())?.trim() || '';
     const switched = lang?.toLowerCase().startsWith('fr') || (after !== before && after.length > 0);
     expect(switched, `Контент не переключился на FR: lang="${lang}", h1 "${after}"`).toBeTruthy();
   });
 
-  test('арабский: включается RTL и вёрстка не ломается', async ({ page }) => {
+  test('арабский: включается RTL и вёрстка не ломается', async ({ homePage, page }) => {
     test.setTimeout(120_000);
-    await gotoPage(page, '/');
+    await homePage.open();
 
-    await page.locator(':text-is("ENG")').locator('visible=true').first().click({ force: true });
-    await page.waitForTimeout(800);
-    await page.locator(':text-is("AR")').locator('visible=true').first().click({ force: true });
-
-    await page
-      .waitForFunction(() => document.documentElement.lang.toLowerCase().startsWith('ar'), null, { timeout: 20_000 })
-      .catch(() => {});
+    await homePage.header.switchLanguage('AR');
     await page.waitForTimeout(2_500);
 
     const state = await page.evaluate(() => ({

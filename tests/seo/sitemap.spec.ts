@@ -1,5 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
-import { gotoPage, waitForCloudflare } from '../helpers';
+import { Page } from '@playwright/test';
+import { test, expect, gotoPage, waitForCloudflare } from '../../src';
 
 /**
  * robots.txt и sitemap: наличие, валидность, выборочная проверка URL.

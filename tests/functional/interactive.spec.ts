@@ -1,81 +1,77 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { Page } from '@playwright/test';
+import { test, expect } from '../../src';
 
 /**
  * Интерактивные элементы: дропдауны меню, аккордеоны, демо-виджет портала,
  * эвристика «мёртвых кнопок» (клик не производит никакого эффекта).
  */
+
+/** Счётчик мутаций DOM: «живая» кнопка меняет документ или URL. */
+async function startMutationCounter(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    (window as any).__mutations = 0;
+    new MutationObserver((list) => {
+      (window as any).__mutations += list.length;
+    }).observe(document.body, { subtree: true, childList: true, attributes: true });
+  });
+}
+
+async function mutationCount(page: Page): Promise<number> {
+  return page.evaluate(() => (window as any).__mutations ?? 0);
+}
+
 test.describe('Интерактив', () => {
-  test('меню Solutions открывается и ведёт на страницу решения', async ({ page }) => {
-    await gotoPage(page, '/');
+  test('меню Solutions открывается и ведёт на страницу решения', async ({ homePage, page }) => {
+    await homePage.open();
+    const { header } = homePage;
 
-    const trigger = page.locator('[id="navigation (new)"] :text-is("Solutions")').first();
-    await expect(trigger, 'Пункт меню Solutions не найден').toBeAttached();
-    await trigger.hover();
-    await page.waitForTimeout(500);
-    await trigger.click({ force: true });
-    await page.waitForTimeout(800);
+    await expect(header.solutionsTrigger, 'Пункт меню Solutions не найден').toBeAttached();
+    await header.openSolutionsMenu();
 
-    const item = page.locator('a[href*="/solutions/global-accounts"]').first();
+    const item = header.menuLink('/solutions/global-accounts');
     await expect(item, 'Подпункт Global accounts недоступен после открытия меню').toBeVisible({ timeout: 10_000 });
     await item.click({ force: true });
     await page.waitForURL(/solutions\/global-accounts/, { timeout: 20_000 });
-    await expect(page.locator('h1').first()).toBeVisible();
+    await expect(homePage.h1).toBeVisible();
   });
 
-  test('аккордеоны в help-centre раскрываются и содержат контент', async ({ page }) => {
-    await gotoPage(page, '/help-centre');
+  test('аккордеоны в help-centre раскрываются и содержат контент', async ({ helpCentrePage }) => {
+    await helpCentrePage.open();
 
-    const titles = page.locator('[class*="AccordionPanel_title"]');
-    const count = await titles.count();
+    const count = await helpCentrePage.accordionTitles.count();
     expect(count, 'Аккордеоны на help-centre не найдены').toBeGreaterThan(2);
 
     // Берём второй аккордеон (первый может быть раскрыт по умолчанию).
-    const target = titles.nth(1);
-    await target.scrollIntoViewIfNeeded();
-
-    // Состояние аккордеона кодируется классом AccordionPanel_activeAccordion.
-    const panel = page.locator('[class*="AccordionPanel_accordionPanel"]').nth(1);
-    const wasActive = /activeAccordion/.test((await panel.getAttribute('class')) || '');
-
-    await target.click();
-    await page.waitForTimeout(1_000);
-    const isActive = /activeAccordion/.test((await panel.getAttribute('class')) || '');
+    const index = 1;
+    const wasActive = await helpCentrePage.isAccordionActive(index);
+    await helpCentrePage.toggleAccordion(index);
+    const isActive = await helpCentrePage.isAccordionActive(index);
 
     expect(
       isActive !== wasActive,
       `Клик по аккордеону не переключил состояние (activeAccordion: ${wasActive} → ${isActive})`
     ).toBeTruthy();
-    const text = (await panel.locator('[class*="AccordionPanel_content"]').first().textContent())?.trim() || '';
-    expect(text.length, 'Раскрытый аккордеон пуст').toBeGreaterThan(20);
+    expect((await helpCentrePage.accordionText(index)).length, 'Раскрытый аккордеон пуст').toBeGreaterThan(20);
   });
 
-  test('демо-виджет клиентского портала: дропдаун счетов открывается', async ({ page }) => {
-    await gotoPage(page, '/');
+  test('демо-виджет клиентского портала: дропдаун счетов открывается', async ({ homePage, page }) => {
+    await homePage.open();
 
-    const dd = page.locator('[role="button"][aria-haspopup="listbox"]:visible').first();
+    const dd = homePage.portalAccountsDropdown;
     await expect(dd, 'Дропдаун демо-виджета не найден').toBeVisible({ timeout: 15_000 });
     await dd.scrollIntoViewIfNeeded();
     await dd.click();
     await page.waitForTimeout(800);
 
-    const options = page.locator('[role="option"]:visible, [role="listbox"] li:visible');
-    expect(await options.count(), 'Дропдаун открылся без опций').toBeGreaterThan(0);
+    expect(await homePage.portalDropdownOptions.count(), 'Дропдаун открылся без опций').toBeGreaterThan(0);
   });
 
-  test('эвристика «мёртвых кнопок»: клики по кнопкам главной производят эффект', async ({ page }) => {
+  test('эвристика «мёртвых кнопок»: клики по кнопкам главной производят эффект', async ({ homePage, page }) => {
     test.setTimeout(180_000);
-    await gotoPage(page, '/');
+    await homePage.open();
+    await startMutationCounter(page);
 
-    // Наблюдаем за мутациями DOM — «живая» кнопка меняет документ или URL.
-    await page.evaluate(() => {
-      (window as any).__mutations = 0;
-      new MutationObserver((list) => {
-        (window as any).__mutations += list.length;
-      }).observe(document.body, { subtree: true, childList: true, attributes: true });
-    });
-
-    const buttons = page.locator('main button:visible, [class*="Hero"] button:visible');
+    const buttons = homePage.contentButtons;
     const total = Math.min(await buttons.count(), 8);
     const dead: string[] = [];
 
@@ -86,23 +82,17 @@ test.describe('Интерактив', () => {
         .slice(0, 40);
       const urlBefore = page.url();
       await btn.scrollIntoViewIfNeeded().catch(() => {});
-      const before = await page.evaluate(() => (window as any).__mutations ?? 0);
+      const before = await mutationCount(page);
       await btn.click({ force: true, timeout: 5_000 }).catch(() => {});
       await page.waitForTimeout(1_200);
 
       if (page.url() !== urlBefore) {
         // Кнопка увела со страницы — живая; возвращаемся.
-        await gotoPage(page, '/');
-        await page.evaluate(() => {
-          (window as any).__mutations = 0;
-          new MutationObserver((list) => {
-            (window as any).__mutations += list.length;
-          }).observe(document.body, { subtree: true, childList: true, attributes: true });
-        });
+        await homePage.open();
+        await startMutationCounter(page);
         continue;
       }
-      const after = await page.evaluate(() => (window as any).__mutations ?? 0);
-      if (after === before) dead.push(label);
+      if ((await mutationCount(page)) === before) dead.push(label);
     }
 
     test.info().annotations.push({ type: 'info', description: `Проверено кнопок: ${total}` });

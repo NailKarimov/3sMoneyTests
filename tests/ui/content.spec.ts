@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect, gotoPage, THIRD_PARTY_NOISE, isOwnResource } from '../../src';
 
 /**
  * UI / контент: битые изображения, ошибки JS-консоли,
@@ -20,7 +19,7 @@ test.describe('UI и контент', () => {
 
     // Отфильтровываем шум сторонних трекеров — нас интересуют ошибки самого сайта.
     const ownErrors = consoleErrors.filter(
-      (e) => !/hubspot|linkedin|facebook|hotjar|clarity|doubleclick|google/i.test(e)
+      (e) => !THIRD_PARTY_NOISE.test(e)
     );
 
     expect(pageErrors, `Необработанные JS-исключения:\n${pageErrors.join('\n')}`).toEqual([]);
@@ -31,8 +30,7 @@ test.describe('UI и контент', () => {
     const failed: string[] = [];
     page.on('response', (resp) => {
       const url = resp.url();
-      const own = url.includes('3s.money') || url.includes('storyblok.com');
-      if (own && resp.status() >= 400) {
+      if (isOwnResource(url) && resp.status() >= 400) {
         failed.push(`${resp.status()} ${url.slice(0, 120)}`);
       }
     });

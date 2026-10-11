@@ -1,5 +1,4 @@
-import { test } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, gotoPage } from '../../src';
 import fs from 'fs';
 
 test('Проверка 404 по всем ссылкам сайта', { tag: '@slow' }, async ({ page }) => {

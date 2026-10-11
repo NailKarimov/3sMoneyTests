@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage, waitForCloudflare } from '../helpers';
+import { test, expect, gotoPage, waitForCloudflare } from '../../src';
 
 /**
  * Динамический краулер: открывает главную, собирает все внутренние ссылки,

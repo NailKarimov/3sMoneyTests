@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect, gotoPage } from '../../src';
 
 /**
  * Тестирование ссылок: корректность href на главной странице

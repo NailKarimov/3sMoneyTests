@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { waitForCloudflare } from '../helpers';
+import { test, expect } from '../../src';
 
 /**
  * GDPR / cookie-consent: до согласия пользователя не должны запускаться
@@ -28,12 +27,11 @@ function collectTrackerHits(hits: string[]) {
 }
 
 test.describe('Cookie-consent (GDPR)', () => {
-  test('до взаимодействия с баннером маркетинговые трекеры не запускаются', async ({ page }) => {
+  test('до взаимодействия с баннером маркетинговые трекеры не запускаются', async ({ homePage, page }) => {
     const hits: string[] = [];
     page.on('request', (req) => collectTrackerHits(hits)(req.url()));
 
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await waitForCloudflare(page);
+    await homePage.openWithoutConsent();
     // Баннер НЕ трогаем — просто ждём и наблюдаем за сетью.
     await page.waitForTimeout(8_000);
 
@@ -43,9 +41,8 @@ test.describe('Cookie-consent (GDPR)', () => {
     ).toEqual([]);
   });
 
-  test('до согласия не ставятся трекинговые куки', async ({ page, context }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await waitForCloudflare(page);
+  test('до согласия не ставятся трекинговые куки', async ({ homePage, page, context }) => {
+    await homePage.openWithoutConsent();
     await page.waitForTimeout(6_000);
 
     const cookies = await context.cookies();
@@ -55,16 +52,15 @@ test.describe('Cookie-consent (GDPR)', () => {
     expect(bad, `Трекинговые куки до согласия: ${JSON.stringify(bad)}`).toEqual([]);
   });
 
-  test('после отказа (Decline) трекеры по-прежнему молчат', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await waitForCloudflare(page);
+  test('после отказа (Decline) трекеры по-прежнему молчат', async ({ homePage, page }) => {
+    await homePage.openWithoutConsent();
 
-    const decline = page.locator('#CybotCookiebotDialogBodyButtonDecline');
-    await expect(decline, 'Кнопка Decline в баннере не найдена').toBeVisible({ timeout: 15_000 });
+    const { declineButton } = homePage.cookieBanner;
+    await expect(declineButton, 'Кнопка Decline в баннере не найдена').toBeVisible({ timeout: 15_000 });
 
     const hits: string[] = [];
     page.on('request', (req) => collectTrackerHits(hits)(req.url()));
-    await decline.click();
+    await homePage.cookieBanner.decline();
     await page.waitForTimeout(8_000);
 
     expect(
@@ -73,9 +69,8 @@ test.describe('Cookie-consent (GDPR)', () => {
     ).toEqual([]);
   });
 
-  test('баннер согласия показывается при первом визите', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await waitForCloudflare(page);
-    await expect(page.locator('#CybotCookiebotDialog')).toBeVisible({ timeout: 15_000 });
+  test('баннер согласия показывается при первом визите', async ({ homePage }) => {
+    await homePage.openWithoutConsent();
+    await expect(homePage.cookieBanner.root).toBeVisible({ timeout: 15_000 });
   });
 });

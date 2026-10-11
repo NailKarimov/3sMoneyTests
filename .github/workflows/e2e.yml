@@ -1,0 +1,98 @@
+name: E2E audit
+
+# Tests run against the live public site 3s.money, so they are NOT triggered on
+# every pull request: only on push to main, weekly, and manually. This keeps the
+# load on a third-party production site minimal.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: "Which tests to run"
+        type: choice
+        options: [fast, smoke, full]
+        default: fast
+
+permissions:
+  contents: write # push the Allure report to the gh-pages branch
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4 # Allure CLI needs Java
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Google Chrome for Playwright
+        run: npx playwright install --with-deps chrome
+
+      - name: Type check
+        run: npm run typecheck
+
+      # The site sits behind Cloudflare, which blocks headless browsers, so tests
+      # run headed Chrome inside a virtual display (xvfb).
+      - name: Run tests
+        id: tests
+        continue-on-error: true
+        env:
+          SUITE: ${{ github.event.inputs.suite || 'fast' }}
+        run: |
+          case "$SUITE" in
+            smoke) xvfb-run -a npm run test:smoke ;;
+            full)  xvfb-run -a npm run test:full ;;
+            *)     xvfb-run -a npm test ;;
+          esac
+
+      - name: Restore Allure history
+        if: always()
+        run: |
+          git fetch origin gh-pages --depth=1 || exit 0
+          git worktree add gh-pages-old origin/gh-pages || exit 0
+          if [ -d gh-pages-old/history ]; then
+            mkdir -p allure-results/history
+            cp -r gh-pages-old/history/. allure-results/history/
+          fi
+
+      - name: Generate Allure report
+        if: always()
+        run: npx allure generate allure-results -o allure-report --clean
+
+      - name: Publish report to GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 14
+
+      - name: Fail the job if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

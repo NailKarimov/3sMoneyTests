@@ -12,6 +12,8 @@ export default defineConfig({
   testDir: './tests',
   grepInvert: runSlow ? undefined : /@slow/,
   timeout: 90_000,
+  // В CI запрещаем случайно оставленный test.only.
+  forbidOnly: !!process.env.CI,
   expect: { timeout: 15_000 },
   // Ограничиваем параллельность и добавляем ретрай: сайт за Cloudflare,
   // много одновременных окон/запросов провоцируют блокировку.
@@ -24,7 +26,8 @@ export default defineConfig({
     channel: 'chrome',
     headless: false,
     screenshot: 'only-on-failure',
-    trace: 'retain-on-failure',
+    // Trace-архивы весят десятки мегабайт; в CI их не пишем, чтобы отчёт на GitHub Pages оставался лёгким.
+    trace: process.env.CI ? 'off' : 'retain-on-failure',
   },
   reporter: [
     ['list'],

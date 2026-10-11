@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { gotoPage } from '../helpers';
+import { test, expect, gotoPage, CookieBanner } from '../../src';
 
 /**
  * Тестирование доступности (a11y) по стандарту WCAG 2.1 A/AA
@@ -16,7 +15,7 @@ test.describe('Доступность (axe-core, WCAG 2.1 A/AA)', () => {
 
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-        .exclude('#CybotCookiebotDialog')
+        .exclude(CookieBanner.SELECTOR)
         .exclude('iframe')
         .analyze();
 

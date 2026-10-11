@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect } from '../../src';
 
 /**
  * Адаптивность: сайт корректно отображается на мобильном,
@@ -13,9 +12,9 @@ const VIEWPORTS = [
 
 test.describe('Адаптивность', () => {
   for (const vp of VIEWPORTS) {
-    test(`${vp.name}: нет горизонтального скролла, контент виден`, async ({ page }) => {
+    test(`${vp.name}: нет горизонтального скролла, контент виден`, async ({ homePage, page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
-      await gotoPage(page, '/');
+      await homePage.open();
 
       // Горизонтальное переполнение — типичный баг адаптивной вёрстки.
       const overflow = await page.evaluate(() => ({
@@ -28,41 +27,26 @@ test.describe('Адаптивность', () => {
       ).toBeLessThanOrEqual(overflow.clientWidth + 1);
 
       // Главный заголовок должен быть виден на любом устройстве.
-      await expect(page.locator('h1').first()).toBeVisible();
+      await expect(homePage.h1).toBeVisible();
     });
   }
 
-  test('mobile: бургер-меню открывается и показывает навигационные ссылки', async ({ page }) => {
+  test('mobile: бургер-меню открывается и показывает навигационные ссылки', async ({ homePage, page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await gotoPage(page, '/');
-
-    // Бургер — обычные div'ы без роли кнопки, в дереве доступности его нет,
-    // поэтому кликаем мышью по его области в правом верхнем углу.
-    await page.mouse.click(340, 33);
-    await page.waitForTimeout(1_500);
-
-    const visibleLinks = await page.evaluate(
-      () =>
-        [...document.querySelectorAll('#navigationMobile a')].filter((a) => {
-          const r = a.getBoundingClientRect();
-          return r.width > 0 && r.height > 0;
-        }).length
-    );
+    await homePage.open();
+    await homePage.mobileMenu.openByPointer();
     expect(
-      visibleLinks,
+      await homePage.mobileMenu.visibleLinksCount(),
       'После клика по бургеру навигационные ссылки не появились'
     ).toBeGreaterThan(0);
   });
 
-  test('mobile: бургер-меню реализовано семантической кнопкой <button>', async ({ page }) => {
+  // Известный дефект BUG-002: тест падает намеренно, пока бургер не станет <button>.
+  test('mobile: бургер-меню реализовано семантической кнопкой <button>', async ({ homePage, page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
-    await gotoPage(page, '/');
-
-    const semanticBurger = page.locator(
-      '#navigationMobile button:visible, header button:visible, [role="button"][aria-label*="menu" i]:visible'
-    );
+    await homePage.open();
     expect(
-      await semanticBurger.count(),
+      await homePage.mobileMenu.semanticBurger.count(),
       'Бургер-меню не является <button> и недоступно с клавиатуры/скринридера'
     ).toBeGreaterThan(0);
   });

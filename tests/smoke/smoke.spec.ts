@@ -1,9 +1,8 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect } from '../../src';
 
 test.describe('3s.money — smoke-проверки', () => {
-  test.beforeEach(async ({ page }) => {
-    await gotoPage(page, '/');
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.open();
   });
 
   test('smoke: заголовок страницы содержит "money"', async ({ page }) => {
@@ -11,9 +10,7 @@ test.describe('3s.money — smoke-проверки', () => {
   });
 
   test('на странице виден текст про платежи', async ({ page }) => {
-    await expect(
-      page.getByRole('heading', { name: /payments/i }).first()
-    ).toBeVisible();
+    await expect(page.getByRole('heading', { name: /payments/i }).first()).toBeVisible();
   });
 
   test('на странице есть хотя бы одна видимая ссылка', async ({ page }) => {

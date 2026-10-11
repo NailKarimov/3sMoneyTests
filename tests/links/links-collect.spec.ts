@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import { gotoPage } from '../helpers';
+import { test, expect, gotoPage } from '../../src';
 import fs from 'fs';
 import path from 'path';
 
