@@ -1,7 +1,7 @@
 # 3s-money-tests
 
-[![E2E audit](https://github.com/YOUR_GITHUB_USERNAME/3s-money-tests/actions/workflows/e2e.yml/badge.svg)](https://github.com/YOUR_GITHUB_USERNAME/3s-money-tests/actions/workflows/e2e.yml)
-[![Allure report](https://img.shields.io/badge/report-Allure-orange)](https://YOUR_GITHUB_USERNAME.github.io/3s-money-tests/)
+[![E2E audit](https://github.com/NailKarimov/3sMoneyTests/actions/workflows/e2e.yml/badge.svg)](https://github.com/NailKarimov/3sMoneyTests/actions/workflows/e2e.yml)
+[![Allure report](https://img.shields.io/badge/report-Allure-orange)](https://nailkarimov.github.io/3sMoneyTests/)
 
 Independent web quality audit of the public pages of [3s.money](https://3s.money), a UK business-payments
 fintech. Automated with **Playwright + TypeScript**, reported with **Allure**, run in **GitHub Actions**.
