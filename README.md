@@ -81,12 +81,14 @@ npm run report         # open the Allure report
 
 - **Headed Chrome.** The site is behind Cloudflare, which blocks headless browsers. Tests run real Chrome
   with a window locally and inside a virtual display (xvfb) in CI.
-- **Gentle on production.** Two workers, throttled crawling, sampled link checks, no PR-triggered runs,
+- **Gentle on production.** Two workers locally and one in CI, throttled crawling, sampled link checks, no PR-triggered runs,
   and no real form submissions.
 - **Fast and slow suites.** The crawler and full link scan are tagged `@slow` and run only on demand.
 - **Severity split in a11y.** Critical and serious violations fail the test; minor ones are attached
   to the Allure report as annotations.
 - **One retry.** Network-level flakiness from Cloudflare is retried once; retries are visible in Allure.
+- **Rate limiting is not a site bug.** Cloudflare answers `429` to cloud CI runners more often than to home
+  connections; console errors caused by `429` responses are excluded from the console-errors check.
 
 ## CI
 

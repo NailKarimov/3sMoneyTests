@@ -8,9 +8,22 @@ test.describe('UI и контент', () => {
   test('на главной нет ошибок в консоли и необработанных исключений', async ({ page }) => {
     const consoleErrors: string[] = [];
     const pageErrors: string[] = [];
+    // Ответы 429 — это ограничение частоты запросов Cloudflare (часто срабатывает
+    // на IP облачного CI), а не ошибка сайта. Их и вызванные ими ошибки консоли не считаем.
+    const throttled = new Set<string>();
+    page.on('response', (resp) => {
+      if (resp.status() === 429) throttled.add(resp.url());
+    });
 
     page.on('console', (msg) => {
-      if (msg.type() === 'error') consoleErrors.push(msg.text().slice(0, 200));
+      if (msg.type() !== 'error') return;
+      const text = msg.text();
+      const url = msg.location().url;
+      const causedByThrottling =
+        /status of 429/.test(text) ||
+        (url && throttled.has(url)) ||
+        [...throttled].some((u) => text.includes(u));
+      if (!causedByThrottling) consoleErrors.push(text.slice(0, 200));
     });
     page.on('pageerror', (err) => pageErrors.push(String(err).slice(0, 200)));
 

@@ -17,7 +17,8 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   // Ограничиваем параллельность и добавляем ретрай: сайт за Cloudflare,
   // много одновременных окон/запросов провоцируют блокировку.
-  workers: 2,
+  // В CI — один поток: с IP облачного раннера Cloudflare быстрее начинает отвечать 429.
+  workers: process.env.CI ? 1 : 2,
   retries: 1,
   use: {
     baseURL: 'https://3s.money',
