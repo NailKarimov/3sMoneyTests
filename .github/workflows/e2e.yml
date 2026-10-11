@@ -35,7 +35,7 @@ jobs:
           node-version: 22
           cache: npm
 
-      - uses: actions/setup-java@v4 # Allure CLI needs Java
+      - uses: actions/setup-java@v5 # Allure CLI needs Java
         with:
           distribution: temurin
           java-version: 21

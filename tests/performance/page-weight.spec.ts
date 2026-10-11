@@ -1,4 +1,4 @@
-import { test, expect, gotoPage } from '../../src';
+import { test, expect, gotoPage, knownBug } from '../../src';
 
 /**
  * Базовые проверки производительности главной страницы.
@@ -31,6 +31,7 @@ test.describe('Производительность', () => {
   });
 
   test('главная не грузит чрезмерный объём данных (< 15 МБ)', async ({ page }) => {
+    knownBug('BUG-001');
     // Считаем реально переданные байты: content-length отсутствует
     // у chunked-ответов, и по нему объём страницы занижается.
     let totalBytes = 0;

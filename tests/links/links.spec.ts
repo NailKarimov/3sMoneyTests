@@ -1,4 +1,4 @@
-import { test, expect, gotoPage } from '../../src';
+import { test, expect, gotoPage, knownBug } from '../../src';
 
 /**
  * Тестирование ссылок: корректность href на главной странице
@@ -6,6 +6,7 @@ import { test, expect, gotoPage } from '../../src';
  */
 test.describe('Ссылки', () => {
   test('на главной нет ссылок с неподставленными плейсхолдерами или мусорными href', async ({ page }) => {
+    knownBug('BUG-003');
     await gotoPage(page, '/');
 
     const hrefs: string[] = await page.$$eval('a[href]', (as) =>
@@ -22,6 +23,7 @@ test.describe('Ссылки', () => {
   });
 
   test('на главной нет "пустых" ссылок-заглушек href="#"', async ({ page }) => {
+    knownBug('BUG-007');
     await gotoPage(page, '/');
     const stubs: string[] = await page.$$eval('a[href="#"]', (as) =>
       as.map((a) => (a.textContent || '').trim().slice(0, 50))
@@ -76,6 +78,7 @@ test.describe('Ссылки', () => {
   });
 
   test('ссылки на внешние ресурсы открываются в новой вкладке с rel=noopener', async ({ page }) => {
+    knownBug('BUG-006');
     await gotoPage(page, '/');
     const unsafe: string[] = await page.$$eval('a[target="_blank"]', (as) =>
       as

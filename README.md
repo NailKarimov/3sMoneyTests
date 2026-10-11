@@ -32,7 +32,7 @@ Full bug reports with steps, expected and actual results: [`docs/findings/`](doc
 
 | ID | Severity | Area | Summary |
 | --- | --- | --- | --- |
-| BUG-009 | critical | Privacy | Analytics trackers load before consent and keep sending data after "Decline" |
+| BUG-009 | critical | Privacy | Analytics and marketing trackers load before consent and keep sending data after "Decline" |
 | BUG-001 | major | Performance | Home page transfers ≈60 MB (≈28 MB on mobile) because videos autoload |
 | BUG-002 | major | Accessibility | Mobile burger menu is a `div`, unreachable by keyboard and screen readers |
 | BUG-003 | minor | Content | Link with an unrendered template placeholder in `href` |
@@ -42,7 +42,9 @@ Full bug reports with steps, expected and actual results: [`docs/findings/`](doc
 | BUG-007 | trivial | UX / a11y | Placeholder links `href="#"` used as buttons |
 | BUG-008 | trivial | UX / SEO | 404 page keeps the marketing `<title>` |
 
-Tests for known defects fail on purpose until the site is fixed, then turn green without code changes.
+Tests that catch a known defect are marked with `knownBug('BUG-xxx')` (Playwright `test.fail`): the build stays
+green while the bug exists and the bug ID is shown in the report. When the site fixes the bug, the test reports
+an unexpected pass — the signal to remove the marker and close the bug.
 
 ## Project structure
 

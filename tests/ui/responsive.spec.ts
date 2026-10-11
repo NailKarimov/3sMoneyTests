@@ -1,4 +1,4 @@
-import { test, expect } from '../../src';
+import { test, expect, knownBug } from '../../src';
 
 /**
  * Адаптивность: сайт корректно отображается на мобильном,
@@ -41,8 +41,8 @@ test.describe('Адаптивность', () => {
     ).toBeGreaterThan(0);
   });
 
-  // Известный дефект BUG-002: тест падает намеренно, пока бургер не станет <button>.
   test('mobile: бургер-меню реализовано семантической кнопкой <button>', async ({ homePage, page }) => {
+    knownBug('BUG-002');
     await page.setViewportSize({ width: 375, height: 812 });
     await homePage.open();
     expect(

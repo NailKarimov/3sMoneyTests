@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { test, expect, gotoPage, CookieBanner } from '../../src';
+import { test, expect, gotoPage, CookieBanner, knownBug } from '../../src';
 
 /**
  * Тестирование доступности (a11y) по стандарту WCAG 2.1 A/AA
@@ -11,6 +11,7 @@ test.describe('Доступность (axe-core, WCAG 2.1 A/AA)', () => {
   for (const path of PAGES) {
     test(`страница ${path}: нет критичных нарушений доступности`, async ({ page }) => {
       test.setTimeout(120_000);
+      knownBug('BUG-004');
       await gotoPage(page, path);
 
       const results = await new AxeBuilder({ page })

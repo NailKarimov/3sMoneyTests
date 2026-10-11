@@ -1,4 +1,4 @@
-import { test, expect } from '../../src';
+import { test, expect, knownBug } from '../../src';
 
 /**
  * GDPR / cookie-consent: до согласия пользователя не должны запускаться
@@ -28,6 +28,7 @@ function collectTrackerHits(hits: string[]) {
 
 test.describe('Cookie-consent (GDPR)', () => {
   test('до взаимодействия с баннером маркетинговые трекеры не запускаются', async ({ homePage, page }) => {
+    knownBug('BUG-009');
     const hits: string[] = [];
     page.on('request', (req) => collectTrackerHits(hits)(req.url()));
 
@@ -42,6 +43,7 @@ test.describe('Cookie-consent (GDPR)', () => {
   });
 
   test('до согласия не ставятся трекинговые куки', async ({ homePage, page, context }) => {
+    knownBug('BUG-009');
     await homePage.openWithoutConsent();
     await page.waitForTimeout(6_000);
 
@@ -53,6 +55,7 @@ test.describe('Cookie-consent (GDPR)', () => {
   });
 
   test('после отказа (Decline) трекеры по-прежнему молчат', async ({ homePage, page }) => {
+    knownBug('BUG-009');
     await homePage.openWithoutConsent();
 
     const { declineButton } = homePage.cookieBanner;

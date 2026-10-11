@@ -1,4 +1,4 @@
-import { test, expect, gotoPage } from '../../src';
+import { test, expect, gotoPage, knownBug } from '../../src';
 
 /**
  * SEO-тестирование: title, meta description, canonical,
@@ -32,6 +32,7 @@ test.describe('SEO', () => {
     });
 
     test(`на странице ${path} ровно один <h1>`, async ({ page }) => {
+      knownBug('BUG-005', path === '/');
       await gotoPage(page, path);
       const h1Texts = await page.$$eval('h1', (hs) =>
         hs.map((h) => (h.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60))
