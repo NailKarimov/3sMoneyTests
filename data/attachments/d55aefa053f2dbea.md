@@ -1,0 +1,804 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: links/links.spec.ts >> Ссылки >> ссылки на внешние ресурсы открываются в новой вкладке с rel=noopener
+- Location: tests/links/links.spec.ts:78:7
+
+# Error details
+
+```
+Error: target=_blank без rel=noopener/noreferrer: ["https://welcome.3s.money/express","https://3s.money/help-centre/compliance-and-security/who-is-3s-money-regulated-by","https://welcome.3s.money/express","https://3s.money/help-centre/getting-started/who-can-apply-for-a-3s-money-account","/contact-us","/help-centre","https://www.linkedin.com/company/3s-money","https://www.instagram.com/3s.money","https://www.facebook.com/3smoney","https://wa.me/message/WEXUHASUANWKE1","https://apps.apple.com/us/app/3s-money/id6452016748?itsct=apps_box_badge&itscg=30200","https://play.google.com/store/apps/details?id=com.mobile3smoney.app&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"]
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 14
+
+- Array []
++ Array [
++   "https://welcome.3s.money/express",
++   "https://3s.money/help-centre/compliance-and-security/who-is-3s-money-regulated-by",
++   "https://welcome.3s.money/express",
++   "https://3s.money/help-centre/getting-started/who-can-apply-for-a-3s-money-account",
++   "/contact-us",
++   "/help-centre",
++   "https://www.linkedin.com/company/3s-money",
++   "https://www.instagram.com/3s.money",
++   "https://www.facebook.com/3smoney",
++   "https://wa.me/message/WEXUHASUANWKE1",
++   "https://apps.apple.com/us/app/3s-money/id6452016748?itsct=apps_box_badge&itscg=30200",
++   "https://play.google.com/store/apps/details?id=com.mobile3smoney.app&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1",
++ ]
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - generic [ref=e9]:
+      - generic [ref=e11]:
+        - paragraph [ref=e14]: Solutions
+        - paragraph [ref=e22]: Clients
+        - paragraph [ref=e30]: Pricing
+        - paragraph [ref=e38]: Resources
+        - paragraph [ref=e46]: Company
+      - generic:
+        - link:
+          - /url: /
+      - generic [ref=e52]:
+        - link "Contact" [ref=e53] [cursor=pointer]:
+          - /url: /contact-us
+        - paragraph [ref=e68] [cursor=pointer]: ENG
+        - link [ref=e69] [cursor=pointer]:
+          - /url: https://clientportal.3s.money/signin
+          - button "oval-loading Log in" [ref=e70]:
+            - status "oval-loading" [ref=e72]
+            - generic [ref=e78]: Log in
+        - link [ref=e80] [cursor=pointer]:
+          - /url: https://welcome.3s.money/express
+          - button "oval-loading Check eligibility" [ref=e81]:
+            - status "oval-loading" [ref=e83]
+            - generic [ref=e89]: Check eligibility
+    - generic [ref=e92]:
+      - link [ref=e94] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e99]:
+        - separator [ref=e100]
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - separator
+            - generic [ref=e107]:
+              - separator [ref=e108]
+              - heading "GLOBAL BUSINESS PAYMENTS POWERED BY PEOPLE" [level=1] [ref=e109]: GLOBAL BUSINESS PAYMENTSPOWERED BY PEOPLE
+              - separator [ref=e110]
+              - generic [ref=e113]:
+                - paragraph [ref=e115]: Move serious money with confidence
+                - separator [ref=e116]
+                - paragraph [ref=e117]: Licensed EMI, fully regulated in UK (FCA), LUX (CSSF), UAE (DFSA) & HK (CED)
+                - separator [ref=e118]
+                - generic [ref=e119]:
+                  - generic [ref=e121]:
+                    - img "image" [ref=e124]
+                    - paragraph [ref=e126]: "TrustScore: Excellent | 1,000+ reviews"
+                  - separator
+                  - separator
+          - separator [ref=e127]
+          - separator
+          - generic [ref=e129] [cursor=pointer]
+        - separator [ref=e142]
+        - separator [ref=e143]
+      - generic [ref=e146]:
+        - separator [ref=e147]
+        - generic [ref=e148]:
+          - separator [ref=e149]
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - img "image" [ref=e156]
+              - paragraph [ref=e157]: Regulated in the UK (FCA), UAE (DFSA), Hong Kong (CED) & Luxembourg (CSSF)
+            - generic [ref=e158]:
+              - img "image" [ref=e161]
+              - paragraph [ref=e162]: Bank-grade account security with two-factor authentication & tiered access levels
+            - generic [ref=e163]:
+              - img "image" [ref=e166]
+              - paragraph [ref=e167]: Your funds are securely protected in safeguarded accounts
+        - separator [ref=e168]
+      - generic [ref=e171]:
+        - separator [ref=e172]
+        - generic [ref=e174]:
+          - generic [ref=e175]:
+            - separator
+            - heading "Open a multi-currency business account with local IBANs" [level=2] [ref=e176]
+            - separator
+          - separator [ref=e177]
+          - paragraph [ref=e178]: Send, receive and exchange money globally, with your dedicated Relationship Manager every step of the way
+        - separator [ref=e179]
+        - generic [ref=e180]:
+          - link [ref=e181] [cursor=pointer]:
+            - /url: /solutions/global-accounts
+            - generic [ref=e182]:
+              - img "A person holding a smartphone displaying a banking app with a balance of 12,600,527.00 EUR. An aircraft is visible in the background." [ref=e185]
+              - heading "Local IBANs in the UK, France, Netherlands, UAE & Luxembourg" [level=5] [ref=e193]
+          - link [ref=e194] [cursor=pointer]:
+            - /url: /business-currency-exchange
+            - generic [ref=e195]:
+              - img "A digital graphic showing a dollar symbol on a coin above currency exchange data for EUR and USD with balances indicated." [ref=e198]
+              - heading "Multi-currency accounts, 65+ currencies & preferential FX rates" [level=5] [ref=e206]: Multi-currency accounts,65+ currencies &preferential FX rates
+          - link [ref=e207] [cursor=pointer]:
+            - /url: /solutions/expert-support
+            - generic [ref=e208]:
+              - img "Three business professionals in suits smiling in an office setting with cityscape visible through the window." [ref=e211]
+              - heading "Relationship Managers offer expert support in 10+ languages" [level=5] [ref=e219]: Relationship Managers offer expert support in10+ languages
+          - link [ref=e220] [cursor=pointer]:
+            - /url: /solutions/payments-platform
+            - generic [ref=e221]:
+              - img "Person holding a smartphone displaying a financial app with a list of transactions and amounts on the screen." [ref=e224]
+              - heading "International SWIFT & SEPA payments across 190+ countries" [level=5] [ref=e232]
+        - generic [ref=e233]:
+          - generic [ref=e234]:
+            - img "A man and a woman in formal attire smiling at a gathering, with people and a framed picture in the softly lit background." [ref=e237]
+            - generic [ref=e241]:
+              - paragraph [ref=e244]: Coming soon
+              - heading "Personal accounts" [level=5] [ref=e248]
+              - heading "T&Cs apply" [level=5] [ref=e251]
+          - link [ref=e253] [cursor=pointer]:
+            - /url: /solutions/payments-platform
+            - generic [ref=e254]:
+              - img "A smartphone displaying a finance app with multiple accounts listed, each showing balance details, next to a person's hand on a reflective surface." [ref=e257]
+              - heading "Onboarding for complex business structures" [level=5] [ref=e265]
+          - link [ref=e266] [cursor=pointer]:
+            - /url: /solutions/global-accounts
+            - generic [ref=e267]:
+              - img "Several overlapping transparent rectangles with partially visible silver coins inside, creating a layered effect against a teal background." [ref=e270]
+              - heading "High-value payments delivered securely & at speed" [level=5] [ref=e278]
+          - link [ref=e279] [cursor=pointer]:
+            - /url: /debit-card
+            - generic [ref=e280]:
+              - img "A laptop on a glass table displaying a finance app with transaction details and a card interface on the screen." [ref=e283]
+              - heading "Virtual business debit cards" [level=5] [ref=e291]: Virtual businessdebit cards
+      - separator [ref=e293]
+      - generic [ref=e296]:
+        - generic [ref=e298]:
+          - heading "3S Money’s 3 key services" [level=3] [ref=e301]
+          - heading "International presence" [level=3] [ref=e304]
+          - generic [ref=e318]:
+            - heading "One global account unlocking local markets, with remote onboarding and on-the-ground expertise to support international growth" [level=6] [ref=e320]
+            - link [ref=e322] [cursor=pointer]:
+              - /url: https://welcome.3s.money/express
+              - button "oval-loading Check eligibility" [ref=e323]:
+                - status "oval-loading" [ref=e325]
+                - generic [ref=e331]: Check eligibility
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "3S Money’s 3 key services" [level=3]
+            - generic:
+              - generic:
+                - heading "Built for complex businesses" [level=3]
+            - generic:
+              - generic:
+                - heading "Businesses with complex international structures benefit from a bespoke risk assessment by our specialists" [level=6]
+              - generic:
+                - link "oval-loading Check eligibility":
+                  - /url: https://welcome.3s.money/express
+                  - button "oval-loading Check eligibility":
+                    - generic:
+                      - status "oval-loading"
+                    - generic: Check eligibility
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "3S Money’s 3 key services" [level=3]
+            - generic:
+              - generic:
+                - heading "Private relationship management" [level=3]
+            - generic:
+              - generic:
+                - heading "With dedicated, multilingual experts who know your business, anticipate your needs, and minimise friction" [level=6]
+              - generic:
+                - link "oval-loading Check eligibility":
+                  - /url: https://welcome.3s.money/express
+                  - button "oval-loading Check eligibility":
+                    - generic:
+                      - status "oval-loading"
+                    - generic: Check eligibility
+        - generic: 01 / 03
+      - generic [ref=e336]:
+        - separator [ref=e337]
+        - generic [ref=e339]:
+          - generic [ref=e343]:
+            - generic [ref=e344]:
+              - generic [ref=e345]: "14"
+              - generic [ref=e346]: "%"
+            - generic [ref=e347]: Match
+          - generic [ref=e350]:
+            - generic [ref=e351]:
+              - heading "Which of these describe your business?" [level=2] [ref=e352]
+              - paragraph [ref=e353]:
+                - generic [ref=e354]: Selected (1/12)
+            - generic [ref=e355]:
+              - button "Operate internationally" [pressed] [ref=e356] [cursor=pointer]
+              - button "Large global payment volumes" [ref=e364] [cursor=pointer]
+              - button "Want a relationship manager" [ref=e373] [cursor=pointer]
+              - button "Multiple legal entities" [ref=e382] [cursor=pointer]
+              - button "Manage multiple currencies" [ref=e391] [cursor=pointer]
+              - button "Send high-value payments" [ref=e400] [cursor=pointer]
+              - button "FX over 100k" [ref=e409] [cursor=pointer]
+              - button "Use SWIFT, SEPA & local rails" [ref=e418] [cursor=pointer]
+              - button "Need local IBANs" [ref=e427] [cursor=pointer]
+              - button "Expanding into new markets" [ref=e436] [cursor=pointer]
+              - button "Complex ownership structure" [ref=e445] [cursor=pointer]
+              - button "Need multilingual support" [ref=e454] [cursor=pointer]
+            - generic [ref=e463]:
+              - button "See your match" [ref=e464] [cursor=pointer]
+              - button "Clear" [ref=e472] [cursor=pointer]
+        - separator [ref=e480]
+      - generic [ref=e483]:
+        - separator [ref=e484]
+        - generic [ref=e485]:
+          - heading "Explore the client portal" [level=1] [ref=e486]
+          - heading "Manage funds anytime, anywhere" [level=1] [ref=e487]
+          - generic [ref=e489]:
+            - generic [ref=e491]:
+              - paragraph [ref=e493] [cursor=pointer]: Desktop
+              - paragraph [ref=e495] [cursor=pointer]: Mobile app
+            - generic [ref=e498]:
+              - generic [ref=e499]:
+                - generic [ref=e500]:
+                  - generic [ref=e501]:
+                    - generic [ref=e502]: 3S Money
+                    - button [ref=e504] [cursor=pointer]
+                  - navigation [ref=e510]:
+                    - button [ref=e511] [cursor=pointer]
+                    - button "Cards Coming soon" [ref=e517] [cursor=pointer]:
+                      - text: Cards
+                      - generic [ref=e524]: Coming soon
+                    - button [ref=e526] [cursor=pointer]
+                    - button [ref=e532] [cursor=pointer]
+                    - button [ref=e539] [cursor=pointer]
+                    - button [ref=e545] [cursor=pointer]
+                - generic [ref=e552]:
+                  - generic [ref=e553]:
+                    - generic [ref=e554]:
+                      - generic [ref=e555]: SH
+                      - generic [ref=e557]:
+                        - generic [ref=e558]: Sarah Heidenman
+                        - generic [ref=e559]: Account manager
+                    - separator [ref=e560]
+                    - generic [ref=e561]: Sarah.Heidenman@3s.money
+                    - generic [ref=e568]: +44 20 3807 9645
+                    - generic [ref=e577]: WhatsApp
+                  - button "Logout" [ref=e585] [cursor=pointer]
+              - generic [ref=e593]:
+                - button [ref=e595] [cursor=pointer]
+                - generic [ref=e600]:
+                  - generic [ref=e601]:
+                    - generic [ref=e602]: Accounts
+                    - generic [ref=e603]:
+                      - generic [ref=e604]: AE
+                      - generic [ref=e606]: Alexis Estates LTD
+                  - button "Filter" [ref=e612] [cursor=pointer]
+                  - generic [ref=e618]:
+                    - generic [ref=e619]:
+                      - generic [ref=e620]:
+                        - generic [ref=e621]:
+                          - generic [ref=e622]: Alexis Estates LTD - EUR
+                          - generic [ref=e625]:
+                            - button [ref=e626] [cursor=pointer]
+                            - button [ref=e632] [cursor=pointer]
+                            - button "Account details" [ref=e639] [cursor=pointer]
+                        - generic [ref=e646]:
+                          - generic [ref=e647]:
+                            - text: € 88,771
+                            - generic [ref=e648]: ".26"
+                          - button [ref=e649] [cursor=pointer]
+                          - button "Top up with card" [ref=e657] [cursor=pointer]
+                      - generic [ref=e668]:
+                        - button "Transfer" [ref=e669] [cursor=pointer]
+                        - button "Exchange" [ref=e677] [cursor=pointer]
+                    - generic [ref=e690]:
+                      - generic [ref=e691]:
+                        - generic [ref=e692]:
+                          - generic [ref=e693]: Alexis Estates LTD - USD
+                          - generic [ref=e696]:
+                            - button [ref=e697] [cursor=pointer]
+                            - button [ref=e703] [cursor=pointer]
+                            - button "Account details" [ref=e710] [cursor=pointer]
+                        - generic [ref=e717]:
+                          - generic [ref=e718]:
+                            - text: $ 192,118
+                            - generic [ref=e719]: ".44"
+                          - button [ref=e720] [cursor=pointer]
+                      - generic [ref=e729]:
+                        - button "Transfer" [ref=e730] [cursor=pointer]
+                        - button "Exchange" [ref=e738] [cursor=pointer]
+                    - generic [ref=e751]:
+                      - generic [ref=e752]:
+                        - generic [ref=e753]:
+                          - generic [ref=e754]: Alexis Estates LTD - GBP
+                          - generic [ref=e757]:
+                            - button [ref=e758] [cursor=pointer]
+                            - button [ref=e764] [cursor=pointer]
+                            - button "Account details" [ref=e771] [cursor=pointer]
+                        - generic [ref=e778]:
+                          - generic [ref=e779]:
+                            - text: £ 73,904
+                            - generic [ref=e780]: ".12"
+                          - button [ref=e781] [cursor=pointer]
+                      - generic [ref=e790]:
+                        - button "Transfer" [ref=e791] [cursor=pointer]
+                        - button "Exchange" [ref=e799] [cursor=pointer]
+                    - generic [ref=e812]:
+                      - generic [ref=e813]:
+                        - generic [ref=e814]:
+                          - generic [ref=e815]: Alexis Estates LTD - AED
+                          - generic [ref=e818]:
+                            - button [ref=e819] [cursor=pointer]
+                            - button [ref=e825] [cursor=pointer]
+                            - button "Account details" [ref=e832] [cursor=pointer]
+                        - generic [ref=e839]:
+                          - generic [ref=e840]:
+                            - text: Dhs 2,456,680
+                            - generic [ref=e841]: ".18"
+                          - button [ref=e842] [cursor=pointer]
+                      - generic [ref=e851]:
+                        - button "Transfer" [ref=e852] [cursor=pointer]
+                        - button "Exchange" [ref=e860] [cursor=pointer]
+                  - generic [ref=e874]:
+                    - generic [ref=e875]:
+                      - generic [ref=e876]: Open a new account in one click
+                      - generic [ref=e877]: Choose one of 65+ currencies
+                    - link "Country Symbol Choose currency" [ref=e882] [cursor=pointer]:
+                      - /url: "#"
+                      - generic [ref=e886]:
+                        - paragraph [ref=e888]: Country
+                        - generic [ref=e889]: Symbol
+                      - generic [ref=e890]: Choose currency
+                    - button "Open account" [disabled] [ref=e897]:
+                      - generic [ref=e898]:
+                        - generic [ref=e899] [cursor=pointer]
+                        - generic [ref=e906]: Open account
+              - generic [ref=e907]:
+                - button [ref=e909]:
+                  - button "Transfer Money" [ref=e910] [cursor=pointer]
+                - button "8" [ref=e919]
+                - button [ref=e928]:
+                  - button "Exchange Currency" [ref=e929] [cursor=pointer]
+      - generic [ref=e938]:
+        - separator [ref=e939]
+        - generic [ref=e941]:
+          - paragraph [ref=e942]: 3 simple steps to opening your account
+          - separator [ref=e943]
+          - generic [ref=e944]:
+            - separator
+            - heading "Open your account with expert guidance from day one" [level=2] [ref=e945]
+            - separator
+        - generic [ref=e947]:
+          - separator [ref=e948]
+          - generic [ref=e950]:
+            - generic [ref=e951]:
+              - paragraph [ref=e955] [cursor=pointer]: Step 1
+              - paragraph [ref=e960] [cursor=pointer]: Step 2
+              - paragraph [ref=e965] [cursor=pointer]: Step 3
+            - generic [ref=e966]:
+              - generic [ref=e968]:
+                - img "A person using a laptop displaying a financial dashboard with various currency accounts listed, including balances in euros, francs, dollars, dirhams, and pounds." [ref=e972]
+                - generic [ref=e973]:
+                  - heading "Check eligibility" [level=5] [ref=e975]
+                  - paragraph [ref=e984] [cursor=pointer]: 5 mins
+                - paragraph [ref=e987]: Tell us about your business & international payment flows. Receive a tailored pre-approval assessment & speak to a specialist.
+                - button "oval-loading Check eligibility" [ref=e988] [cursor=pointer]:
+                  - status "oval-loading" [ref=e990]
+                  - generic [ref=e996]: Check eligibility
+              - generic [ref=e999]:
+                - img "Man with earbuds working on a laptop at a desk, with a notebook and pen nearby, in a cozy office environment." [ref=e1003]
+                - generic [ref=e1004]:
+                  - heading "Remote onboarding" [level=5] [ref=e1006]
+                  - paragraph [ref=e1015] [cursor=pointer]: 30 mins
+                - paragraph [ref=e1018]: Submit documents digitally and track onboarding progress live, while we guide you through every required detail.
+              - generic [ref=e1020]:
+                - img "Two women smiling and collaborating on laptops at a desk in an office setting." [ref=e1024]
+                - generic [ref=e1025]:
+                  - heading "Get your account" [level=5] [ref=e1027]
+                  - paragraph [ref=e1036] [cursor=pointer]: 10 days*
+                - paragraph [ref=e1039]: Your dedicated Relationship Manager handles compliance, KYC & onboarding - with most accounts approved within 10 days.
+                - button "oval-loading Schedule a call" [ref=e1040] [cursor=pointer]:
+                  - status "oval-loading" [ref=e1042]
+                  - generic [ref=e1048]: Schedule a call
+        - separator [ref=e1050]
+        - heading "*10 days is an indicative timeframe. Account opening timelines may vary depending on each business, required checks and the information provided during onboarding." [level=2] [ref=e1052]
+        - separator [ref=e1053]
+        - separator [ref=e1054]
+      - generic [ref=e1057]:
+        - separator [ref=e1058]
+        - generic [ref=e1059]:
+          - generic [ref=e1060]:
+            - paragraph [ref=e1061]: Your team
+            - separator [ref=e1062]
+            - paragraph [ref=e1065]: Get the personalised support and expert guidance your business deserves
+            - separator [ref=e1066]
+            - separator [ref=e1067]
+            - link [ref=e1069] [cursor=pointer]:
+              - /url: https://welcome.3s.money/express
+              - button "oval-loading Check eligibility" [ref=e1070]:
+                - status "oval-loading" [ref=e1072]
+                - generic [ref=e1078]: Check eligibility
+          - link [ref=e1080] [cursor=pointer]:
+            - /url: /contact-us
+            - generic [ref=e1081]:
+              - img "Group of eleven people standing in front of a building with a \"3S Money\" sign, smiling and posing for a photo." [ref=e1084]
+              - generic [ref=e1086]:
+                - paragraph [ref=e1087]: 3S Money, Luxembourg Office
+                - paragraph [ref=e1088]: Relationship management team
+      - generic [ref=e1097]:
+        - separator [ref=e1098]
+        - generic [ref=e1102]:
+          - separator [ref=e1103]
+          - paragraph [ref=e1104]: Frequently asked questions
+          - separator [ref=e1105]
+          - generic [ref=e1106]:
+            - generic [ref=e1108]:
+              - heading "Is 3S Money a bank?" [level=3] [ref=e1110] [cursor=pointer]
+              - paragraph [ref=e1119]:
+                - text: 3S Money is not a bank. 3S Money is an Electronic Money Institution that provides multi-currency international business accounts as well as foreign exchange solutions. By combining innovative financial technology with private banking standards, we offer businesses the payment services they need to expand into new markets.We are
+                - link "licenced and regulated" [ref=e1120] [cursor=pointer]:
+                  - /url: https://3s.money/help-centre/compliance-and-security/who-is-3s-money-regulated-by
+                - text: by the Luxembourg Commission de Surveillance du Secteur Financier (CSSF), the UK’s Financial Conduct Authority (FCA), and Dubai’s Financial Services Authority (DFSA) in the Dubai International Financial Centre (DIFC).
+            - generic [ref=e1122]:
+              - heading "How do I open a 3S Money account?" [level=3] [ref=e1124] [cursor=pointer]
+              - paragraph [ref=e1133]:
+                - text: Opening an account with 3S Money couldn’t be easier. We only need a few details about you, your business, and your international payment needs. Simply
+                - link "complete our application form" [ref=e1134] [cursor=pointer]:
+                  - /url: https://welcome.3s.money/express
+                - text: ", and our team will take care of the rest."
+            - generic [ref=e1136]:
+              - heading "What type of business does 3S Money accept?" [level=3] [ref=e1138] [cursor=pointer]
+              - generic [ref=e1146]:
+                - paragraph [ref=e1147]: "3S Money welcomes businesses from around the world and supports entrepreneurs in industries that traditional banks might ignore.The list of industries we can support includes but isn’t exclusive to:"
+                - list [ref=e1148]:
+                  - listitem [ref=e1149]:
+                    - paragraph [ref=e1150]: Agriculture, farming and forestry
+                  - listitem [ref=e1151]:
+                    - paragraph [ref=e1152]: Art, antiques and luxury goods
+                  - listitem [ref=e1153]:
+                    - paragraph [ref=e1154]: Commodities
+                  - listitem [ref=e1155]:
+                    - paragraph [ref=e1156]: Computers and communication equipment
+                  - listitem [ref=e1157]:
+                    - paragraph [ref=e1158]: Construction
+                  - listitem [ref=e1159]:
+                    - paragraph [ref=e1160]: Energy and utilities
+                  - listitem [ref=e1161]:
+                    - paragraph [ref=e1162]: Food, beverages and tobacco
+                  - listitem [ref=e1163]:
+                    - paragraph [ref=e1164]: Health & beauty
+                  - listitem [ref=e1165]:
+                    - paragraph [ref=e1166]: Household and consumer goods
+                  - listitem [ref=e1167]:
+                    - paragraph [ref=e1168]: IT, software development and maintenance
+                  - listitem [ref=e1169]:
+                    - paragraph [ref=e1170]: Machinery and metal products
+                  - listitem [ref=e1171]:
+                    - paragraph [ref=e1172]: Medical
+                  - listitem [ref=e1173]:
+                    - paragraph [ref=e1174]: Motor vehicles
+                  - listitem [ref=e1175]:
+                    - paragraph [ref=e1176]: Print and media
+                  - listitem [ref=e1177]:
+                    - paragraph [ref=e1178]: Sports and gaming
+                  - listitem [ref=e1179]:
+                    - paragraph [ref=e1180]: Textile, clothing and footwear
+                  - listitem [ref=e1181]:
+                    - paragraph [ref=e1182]: Transport and logistics
+                - paragraph [ref=e1183]:
+                  - text: Check out our
+                  - link "full eligibility criteria" [ref=e1184] [cursor=pointer]:
+                    - /url: https://3s.money/help-centre/getting-started/who-can-apply-for-a-3s-money-account
+                  - text: .
+            - generic [ref=e1186]:
+              - heading "Can I upgrade my 3S Money account?" [level=3] [ref=e1188] [cursor=pointer]
+              - paragraph [ref=e1197]: You can switch between plans easily and only pay for what you need with assistance from your Relationship Manager.
+            - generic [ref=e1199]:
+              - heading "Can 3S Money provide customer support in different languages?" [level=3] [ref=e1201] [cursor=pointer]
+              - paragraph [ref=e1210]: As a global business, we use English as a first language for all written communications. However, with dedicated Relationship Managers across seven global offices - we aim to provide local language support where possible.
+            - generic [ref=e1212]:
+              - heading "How do I contact 3S Money?" [level=3] [ref=e1214] [cursor=pointer]
+              - paragraph [ref=e1223]:
+                - text: The quickest way to get in touch is by sending us a message through our
+                - link "Contact Us" [ref=e1224] [cursor=pointer]:
+                  - /url: /contact-us
+                - text: page or by calling your local 3S Money office to speak to our team directly.
+          - separator [ref=e1225]
+          - generic [ref=e1226]:
+            - link [ref=e1227] [cursor=pointer]:
+              - /url: /help-centre
+              - button "oval-loading See all FAQs" [ref=e1228]:
+                - status "oval-loading" [ref=e1230]
+                - generic [ref=e1236]: See all FAQs
+            - link [ref=e1238] [cursor=pointer]:
+              - /url: /contact-us
+              - button "oval-loading Contact us" [ref=e1239]:
+                - status "oval-loading" [ref=e1241]
+                - generic [ref=e1247]: Contact us
+          - separator [ref=e1249]
+    - generic [ref=e1252]:
+      - generic [ref=e1253]:
+        - generic [ref=e1254]:
+          - paragraph [ref=e1255]: Solutions
+          - generic [ref=e1257]:
+            - link [ref=e1258] [cursor=pointer]:
+              - /url: /solutions/global-accounts
+              - paragraph [ref=e1259]: Global accounts
+            - link [ref=e1260] [cursor=pointer]:
+              - /url: /solutions/payments-platform
+              - paragraph [ref=e1261]: Global payments
+            - link [ref=e1262] [cursor=pointer]:
+              - /url: /business-currency-exchange
+              - paragraph [ref=e1263]: Currency wallets & FX
+            - link [ref=e1264] [cursor=pointer]:
+              - /url: /solutions/expert-support
+              - paragraph [ref=e1265]: Expert tailored support
+            - link [ref=e1266] [cursor=pointer]:
+              - /url: /debit-card
+              - paragraph [ref=e1267]: Business debit cards
+        - generic [ref=e1268]:
+          - paragraph [ref=e1269]: Top industries
+          - generic [ref=e1271]:
+            - link [ref=e1272] [cursor=pointer]:
+              - /url: /industries/asset-managers
+              - paragraph [ref=e1273]: Asset managers
+            - link [ref=e1274] [cursor=pointer]:
+              - /url: /industries/consultancies
+              - paragraph [ref=e1275]: Consultancies
+            - link [ref=e1276] [cursor=pointer]:
+              - /url: /industries/digital-asset-businesses
+              - paragraph [ref=e1277]: Digital-asset businesses
+            - link [ref=e1278] [cursor=pointer]:
+              - /url: /industries/e-commerce
+              - paragraph [ref=e1279]: E-commerce
+            - link [ref=e1280] [cursor=pointer]:
+              - /url: /industries/education
+              - paragraph [ref=e1281]: Education
+            - link [ref=e1282] [cursor=pointer]:
+              - /url: /industries/holding-companies
+              - paragraph [ref=e1283]: Holding companies
+            - link [ref=e1284] [cursor=pointer]:
+              - /url: /industries/it-services
+              - paragraph [ref=e1285]: IT services
+            - link [ref=e1286] [cursor=pointer]:
+              - /url: /industries/real-estate
+              - paragraph [ref=e1287]: Real estate
+            - link [ref=e1288] [cursor=pointer]:
+              - /url: /industries/shipping-and-logistics
+              - paragraph [ref=e1289]: Shipping and logistics
+            - link [ref=e1290] [cursor=pointer]:
+              - /url: /industries/sports
+              - paragraph [ref=e1291]: Sports
+            - link [ref=e1292] [cursor=pointer]:
+              - /url: /industries/travel
+              - paragraph [ref=e1293]: Travel
+            - link [ref=e1294] [cursor=pointer]:
+              - /url: /industries/wholesale-traders
+              - paragraph [ref=e1295]: Wholesale traders
+        - generic [ref=e1296]:
+          - paragraph [ref=e1297]: Pricing
+          - generic [ref=e1299]:
+            - link [ref=e1300] [cursor=pointer]:
+              - /url: /pricing
+              - paragraph [ref=e1301]: Pricing plans
+            - link [ref=e1302] [cursor=pointer]:
+              - /url: /pricing
+              - paragraph [ref=e1303]: Transaction fees calculator
+            - link [ref=e1304] [cursor=pointer]:
+              - /url: /fees-and-pricing
+              - paragraph [ref=e1305]: How our fees work
+        - generic [ref=e1306]:
+          - paragraph [ref=e1307]: Resources
+          - generic [ref=e1309]:
+            - link [ref=e1310] [cursor=pointer]:
+              - /url: /solutions
+              - paragraph [ref=e1311]: Use cases
+            - link [ref=e1312] [cursor=pointer]:
+              - /url: /payment-guide
+              - paragraph [ref=e1313]: Payment guides
+            - link [ref=e1314] [cursor=pointer]:
+              - /url: /help-centre
+              - paragraph [ref=e1315]: Help centre
+            - link [ref=e1316] [cursor=pointer]:
+              - /url: /help-centre/compliance-and-security
+              - paragraph [ref=e1317]: Compliance & security
+        - generic [ref=e1318]:
+          - paragraph [ref=e1319]: Company
+          - generic [ref=e1321]:
+            - link [ref=e1322] [cursor=pointer]:
+              - /url: /our-story
+              - paragraph [ref=e1323]: Our story
+            - link [ref=e1324] [cursor=pointer]:
+              - /url: /partnerships
+              - paragraph [ref=e1325]: Become a partner
+            - link [ref=e1326] [cursor=pointer]:
+              - /url: /news-and-blog
+              - paragraph [ref=e1327]: Newsroom & blog
+            - link [ref=e1328] [cursor=pointer]:
+              - /url: /careers
+              - paragraph [ref=e1329]: Careers
+        - generic [ref=e1330]:
+          - paragraph [ref=e1331]: Head office
+          - generic [ref=e1332]:
+            - paragraph [ref=e1333]: 45 Folgate Street London E1 6GL
+            - separator [ref=e1334]
+            - link [ref=e1335] [cursor=pointer]:
+              - /url: tel:+4402038079645
+              - paragraph [ref=e1336]: +44 (0) 203 807 9645
+            - separator [ref=e1337]
+            - link [ref=e1338] [cursor=pointer]:
+              - /url: mailto:info@3s.money
+              - paragraph [ref=e1339]: info@3s.money
+      - generic [ref=e1341]:
+        - paragraph [ref=e1342]: Subscribe to our newsletter to receive the latest updates from 3S Money
+        - generic [ref=e1343]:
+          - link [ref=e1344] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/3s-money
+          - link [ref=e1347] [cursor=pointer]:
+            - /url: https://www.instagram.com/3s.money
+          - link [ref=e1350] [cursor=pointer]:
+            - /url: https://www.facebook.com/3smoney
+          - link [ref=e1353] [cursor=pointer]:
+            - /url: https://wa.me/message/WEXUHASUANWKE1
+        - generic [ref=e1357]:
+          - generic [ref=e1358]:
+            - textbox "Your Email" [ref=e1361]
+            - button "oval-loading Subscribe" [ref=e1362] [cursor=pointer]:
+              - status "oval-loading" [ref=e1364]
+              - generic [ref=e1370]: Subscribe
+          - generic [ref=e1373]:
+            - checkbox [ref=e1374] [cursor=pointer]
+            - paragraph [ref=e1378] [cursor=pointer]: I agree to subscribe to 3S Money marketing emails.I can unsubscribe at any time.
+          - generic [ref=e1380]:
+            - checkbox [ref=e1381] [cursor=pointer]
+            - paragraph [ref=e1385] [cursor=pointer]:
+              - text: By clicking “subscribe” I confirm I have read the
+              - link "privacy policy" [ref=e1386]:
+                - /url: /privacy-policy
+              - text: and agree to its terms
+      - generic [ref=e1388]:
+        - generic [ref=e1390]:
+          - link [ref=e1391] [cursor=pointer]:
+            - /url: /terms
+            - paragraph [ref=e1392]: Terms and conditions
+          - link [ref=e1393] [cursor=pointer]:
+            - /url: /vulnerable-customer-statement
+            - paragraph [ref=e1394]: Vulnerable customer statement
+          - link [ref=e1395] [cursor=pointer]:
+            - /url: /consumer-duty
+            - paragraph [ref=e1396]: Consumer duty
+          - link [ref=e1397] [cursor=pointer]:
+            - /url: /privacy-policy
+            - paragraph [ref=e1398]: Privacy policy
+          - link [ref=e1399] [cursor=pointer]:
+            - /url: /cookies
+            - paragraph [ref=e1400]: Cookies
+          - link [ref=e1401] [cursor=pointer]:
+            - /url: /esg-statement
+            - paragraph [ref=e1402]: ESG Statement
+          - link [ref=e1403] [cursor=pointer]:
+            - /url: /cardholder-agreement
+            - paragraph [ref=e1404]: Cardholder Agreement
+        - generic [ref=e1405]:
+          - link [ref=e1406] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/3s-money/id6452016748?itsct=apps_box_badge&itscg=30200
+          - link [ref=e1412] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.mobile3smoney.app&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1
+        - paragraph [ref=e1416]: © 3S Money Club Limited 2019-2026. All rights reserved. 3S Money and 3s.money are trading names of 3S Money Club Limited. 3S Money Club Limited is authorised by the Financial Conduct Authority under the Electronic Money Regulations 2011 for issuing of electronic money and the provision of payment services with FCA registration number 900918. 3S Money Club Limited is registered in England and Wales, Company Number 08574246, with its registered office address at 45 Folgate Street, London, E1 6GL, United Kingdom. 3S Money Club Limited is registered with The United Kingdom Information Commissioner's Office with ICO registration number ZA495485. 3S Money Club Limited (DIFC Branch) is regulated by the Dubai Financial Services Authority (DFSA) with DFSA reference number F007004, authorising it under Article 48 of the Regulatory Law 2004 to carry on the Financial Services comprised in Issuing Payment Instruments and Providing or Operating a Payment Account. 3S Money Club Limited (DIFC Branch) is registered in Dubai International Financial Centre, Licence Number CL5587, with its registered office address at Central Park Towers, Office 17-37, DIFC, Dubai, UAE. 3S Money (Luxembourg) S.A. is authorised by the Commission de Surveillance du Secteur Financier (CSSF) under the law of 10 November 2009 on payment services for issuing, distribution and refund of electronic money with CSSF registration number W00000016. 3S Money (Luxembourg) S.A. is registered in Luxembourg, R.C.S number B245715, with its registered office address at 25C, Boulevard Royal, L- 2449 Luxembourg, Grand Duchy of Luxembourg
+  - alert [ref=e1417]
+  - iframe [aria-hidden] [ref=e1418]
+  - button "Open cookie settings widget" [ref=e1420] [cursor=pointer]
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect, gotoPage } from '../../src';
+  2  | 
+  3  | /**
+  4  |  * Тестирование ссылок: корректность href на главной странице
+  5  |  * и доступность внутренних страниц (проверка на битые ссылки).
+  6  |  */
+  7  | test.describe('Ссылки', () => {
+  8  |   test('на главной нет ссылок с неподставленными плейсхолдерами или мусорными href', async ({ page }) => {
+  9  |     await gotoPage(page, '/');
+  10 | 
+  11 |     const hrefs: string[] = await page.$$eval('a[href]', (as) =>
+  12 |       as.map((a) => a.getAttribute('href') || '')
+  13 |     );
+  14 | 
+  15 |     const bad = hrefs.filter(
+  16 |       (h) =>
+  17 |         /\[#.*#\]/.test(h) || // неподставленный шаблон вида [#VAR#]
+  18 |         /undefined|null/.test(h) ||
+  19 |         h.trim() === ''
+  20 |     );
+  21 |     expect(bad, `Мусорные href: ${JSON.stringify(bad)}`).toEqual([]);
+  22 |   });
+  23 | 
+  24 |   test('на главной нет "пустых" ссылок-заглушек href="#"', async ({ page }) => {
+  25 |     await gotoPage(page, '/');
+  26 |     const stubs: string[] = await page.$$eval('a[href="#"]', (as) =>
+  27 |       as.map((a) => (a.textContent || '').trim().slice(0, 50))
+  28 |     );
+  29 |     expect(stubs, `Ссылки-заглушки href="#": ${JSON.stringify(stubs)}`).toEqual([]);
+  30 |   });
+  31 | 
+  32 |   test('внутренние ссылки главной не ведут на 404/5xx', async ({ page }) => {
+  33 |     test.setTimeout(240_000);
+  34 |     await gotoPage(page, '/');
+  35 | 
+  36 |     const origin = 'https://3s.money';
+  37 |     let links: string[] = await page.$$eval(
+  38 |       'a[href]',
+  39 |       (as, origin) => {
+  40 |         const urls = as
+  41 |           .map((a) => {
+  42 |             try {
+  43 |               return new URL(a.getAttribute('href')!, location.href).href;
+  44 |             } catch {
+  45 |               return null;
+  46 |             }
+  47 |           })
+  48 |           .filter(
+  49 |             (h): h is string =>
+  50 |               !!h && h.startsWith(origin) && !h.includes('#') && !h.includes('[')
+  51 |           );
+  52 |         return [...new Set(urls)];
+  53 |       },
+  54 |       origin
+  55 |     );
+  56 |     links = links.slice(0, 25); // ограничиваем выборку, чтобы не злить Cloudflare
+  57 | 
+  58 |     const broken: string[] = [];
+  59 |     const blocked: string[] = [];
+  60 |     for (const url of links) {
+  61 |       const resp = await page.request.get(url, { timeout: 20_000 }).catch(() => null);
+  62 |       if (!resp) {
+  63 |         broken.push(`${url} — нет ответа`);
+  64 |       } else if (resp.status() === 403 || resp.status() === 429) {
+  65 |         blocked.push(url); // заблокировано Cloudflare — не считаем багом сайта
+  66 |       } else if (resp.status() >= 400) {
+  67 |         broken.push(`${url} — HTTP ${resp.status()}`);
+  68 |       }
+  69 |     }
+  70 | 
+  71 |     test.info().annotations.push({
+  72 |       type: 'info',
+  73 |       description: `Проверено ссылок: ${links.length}, заблокировано CF: ${blocked.length}`,
+  74 |     });
+  75 |     expect(broken, `Битые ссылки:\n${broken.join('\n')}`).toEqual([]);
+  76 |   });
+  77 | 
+  78 |   test('ссылки на внешние ресурсы открываются в новой вкладке с rel=noopener', async ({ page }) => {
+  79 |     await gotoPage(page, '/');
+  80 |     const unsafe: string[] = await page.$$eval('a[target="_blank"]', (as) =>
+  81 |       as
+  82 |         .filter((a) => {
+  83 |           const rel = (a.getAttribute('rel') || '').toLowerCase();
+  84 |           return !rel.includes('noopener') && !rel.includes('noreferrer');
+  85 |         })
+  86 |         .map((a) => a.getAttribute('href') || '')
+  87 |         .slice(0, 20)
+  88 |     );
+  89 |     expect(
+  90 |       unsafe,
+  91 |       `target=_blank без rel=noopener/noreferrer: ${JSON.stringify(unsafe)}`
+> 92 |     ).toEqual([]);
+     |       ^ Error: target=_blank без rel=noopener/noreferrer: ["https://welcome.3s.money/express","https://3s.money/help-centre/compliance-and-security/who-is-3s-money-regulated-by","https://welcome.3s.money/express","https://3s.money/help-centre/getting-started/who-can-apply-for-a-3s-money-account","/contact-us","/help-centre","https://www.linkedin.com/company/3s-money","https://www.instagram.com/3s.money","https://www.facebook.com/3smoney","https://wa.me/message/WEXUHASUANWKE1","https://apps.apple.com/us/app/3s-money/id6452016748?itsct=apps_box_badge&itscg=30200","https://play.google.com/store/apps/details?id=com.mobile3smoney.app&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"]
+  93 |   });
+  94 | });
+  95 | 
+```
