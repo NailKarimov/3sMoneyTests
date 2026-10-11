@@ -10,3 +10,5 @@ export { CookieBanner } from './components/CookieBanner';
 export { Header } from './components/Header';
 export { MobileMenu } from './components/MobileMenu';
 export { knownBug, KNOWN_BUGS } from './support/known-bugs';
+export { collectTabStops } from './support/keyboard';
+export type { TabStop } from './support/keyboard';

@@ -31,7 +31,8 @@ export default defineConfig({
     trace: process.env.CI ? 'off' : 'retain-on-failure',
   },
   reporter: [
-    ['list'],
+    // В CI добавляем github-репортер: падения видны прямо в интерфейсе GitHub Actions.
+    [process.env.CI ? 'github' : 'list'],
     ['html', { open: 'never' }],
     ['allure-playwright'],
   ],

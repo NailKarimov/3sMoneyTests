@@ -2,12 +2,12 @@ import AxeBuilder from '@axe-core/playwright';
 import { test, expect, gotoPage, CookieBanner, knownBug } from '../../src';
 
 /**
- * Тестирование доступности (a11y) по стандарту WCAG 2.1 A/AA
+ * Тестирование доступности (a11y) по WCAG 2.2 A/AA (основа EN 301 549 V4.1.1)
  * с помощью axe-core. Cookie-баннер исключаем — это сторонний виджет.
  */
 const PAGES = ['/', '/contact-us', '/pricing'];
 
-test.describe('Доступность (axe-core, WCAG 2.1 A/AA)', () => {
+test.describe('Доступность (axe-core, WCAG 2.2 A/AA)', () => {
   for (const path of PAGES) {
     test(`страница ${path}: нет критичных нарушений доступности`, async ({ page }) => {
       test.setTimeout(120_000);
@@ -15,7 +15,7 @@ test.describe('Доступность (axe-core, WCAG 2.1 A/AA)', () => {
       await gotoPage(page, path);
 
       const results = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
         .exclude(CookieBanner.SELECTOR)
         .exclude('iframe')
         .analyze();
