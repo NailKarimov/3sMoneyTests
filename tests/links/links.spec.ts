@@ -6,7 +6,7 @@ import { test, expect, gotoPage, knownBug } from '../../src';
  */
 test.describe('Ссылки', () => {
   test('на главной нет ссылок с неподставленными плейсхолдерами или мусорными href', async ({ page }) => {
-    knownBug('BUG-003');
+    // BUG-003 закрыт 23.10.2026: тест с knownBug неожиданно прошёл, сайт исправил ссылку.
     await gotoPage(page, '/');
 
     const hrefs: string[] = await page.$$eval('a[href]', (as) =>

@@ -2,7 +2,7 @@
 
 The structure follows ISO/IEC/IEEE 29119-3 (test completion report), shortened.
 
-- **Period:** 20.09.2026 – 19.10.2026
+- **Period:** 20.09.2026 – 23.10.2026
 - **Build:** the production website at the time of each run
 - **Allure report:** https://nailkarimov.github.io/3sMoneyTests/
 
@@ -19,7 +19,7 @@ controls have no visible focus. The home page is very heavy: ≈ 60 MB on deskto
 | Tests in the latest run (fast suite) | 64 |
 | Passed / failed / skipped | 64 / 0 / 0 (known bugs pinned with `knownBug()`) |
 | Duration | ~5 min (one worker, headed Chrome) |
-| Defects found | 10: 1 critical, 3 major, 4 minor, 2 trivial |
+| Defects found | 10: 1 critical, 3 major, 4 minor, 2 trivial; 1 fixed (BUG-003) |
 
 ## 3. Defects
 
@@ -29,7 +29,8 @@ controls have no visible focus. The home page is very heavy: ≈ 60 MB on deskto
 | BUG-001 | major | ≈ 60 MB home page (autoloading videos) | open |
 | BUG-002 | major | the mobile menu is not keyboard or screen-reader accessible | open |
 | BUG-010 | major | no visible focus on about half of the controls | open |
-| BUG-003…008 | minor and trivial | placeholder link, WCAG violations, three `<h1>`, `noopener`, `href="#"`, the 404 title | open |
+| BUG-003 | minor | a link with an unrendered template placeholder | **fixed** 23.10.2026: the pinned test passed unexpectedly |
+| BUG-004…008 | minor and trivial | WCAG violations, three `<h1>`, `noopener`, `href="#"`, the 404 title | open |
 
 Full reports: [`findings/`](findings/).
 

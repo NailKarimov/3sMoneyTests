@@ -15,7 +15,7 @@ fintech, automated with **Playwright** and **TypeScript**. Every finding is writ
 | **Language and tools** | TypeScript · Playwright Test (headed Chrome) · axe-core · Allure |
 | **Types of testing** | smoke, functional UI, responsive UI, accessibility (WCAG 2.2 AA), web performance, SEO, link integrity, privacy compliance (GDPR / UK PECR) |
 | **Tests** | 64 in the fast suite + a full-site crawler (`@slow`, on demand) |
-| **Test quality** | 10 defects pinned with `knownBug()`; each test turns red when its bug is fixed. No mutation check: this is someone else's production site |
+| **Test quality** | defects pinned with `knownBug()`; each test turns red when its bug is fixed, which is how BUG-003 was closed. No mutation check: this is someone else's production site |
 | **Reports** | [Allure](https://nailkarimov.github.io/3sMoneyTests/) · [bug reports](docs/findings/) |
 
 ## What is tested
@@ -33,7 +33,8 @@ fintech, automated with **Playwright** and **TypeScript**. Every finding is writ
 
 ## Findings
 
-The audits found **10 defects**: 1 critical, 3 major, 4 minor and 2 trivial. The full bug reports, with steps,
+The audits found **10 defects**: 1 critical, 3 major, 4 minor and 2 trivial. One of them, BUG-003, is fixed:
+on 23.10.2026 its test passed unexpectedly, which is the signal this design is built for. The full bug reports, with steps,
 expected and actual results, are in [`docs/findings/`](docs/findings/).
 
 | ID | Severity | Area | Summary |
@@ -42,7 +43,7 @@ expected and actual results, are in [`docs/findings/`](docs/findings/).
 | BUG-001 | major | Performance | the home page transfers ≈ 60 MB (≈ 28 MB on mobile) because videos autoload |
 | BUG-002 | major | Accessibility | the mobile burger menu is a `div`, unreachable by keyboard and screen readers |
 | BUG-010 | major | Accessibility | about half of the links and buttons show no visible focus indicator (WCAG 2.4.7) |
-| BUG-003 | minor | Content | a link with an unrendered template placeholder in `href` |
+| BUG-003 | minor | Content | a link with an unrendered template placeholder in `href`; **fixed** by the site on 23.10.2026 |
 | BUG-004 | minor | Accessibility | WCAG 2.2 AA violations: unnamed buttons and links, unlabeled fields, low contrast |
 | BUG-005 | minor | SEO | three `<h1>` elements on the home page |
 | BUG-006 | minor | Security | `target=_blank` links without `rel=noopener` |
